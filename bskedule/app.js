@@ -174,8 +174,8 @@ function examsParsing(data)
             weekOfExam = week(dateOfExam)
             dayOfExam = dateOfExam.getDay()
             dayOfExam = dayOfExam == 0 ? 8 : dayOfExam + 1
-            timeOfExam = `${s[4].replace('g', ':')} - ${s[4].split('g')[0]*1+1}:15`
-            exams.push(['Thi ' + s[1], `mã ${s[0]}\nnhóm-tổ ${s[2]}\nphòng ${s[5]}`, dayOfExam, timeOfExam, [weekOfExam+''], '#ffffff'])
+            timeOfExam = `${s[4].replace('g', ':')} - ${s[4].split('g')[0]*1+2}:00`
+            exams.push(['Thi giữa kì' + s[1], `mã ${s[0]}\nnhóm-tổ ${s[2]}\nphòng ${s[5]}`, dayOfExam, timeOfExam, [weekOfExam+''], '#ffffff'])
         }        
         if (s[6] != '/')
         {
@@ -188,8 +188,8 @@ function examsParsing(data)
             weekOfExam = week(dateOfExam)
             dayOfExam = dateOfExam.getDay()
             dayOfExam = dayOfExam == 0 ? 8 : dayOfExam + 1
-            timeOfExam = `${s[7].replace('g', ':')} - ${s[7].split('g')[0]*1+1}:15`
-            exams.push(['Thi ' + s[1], `mã ${s[0]}\nnhóm-tổ ${s[2]}\nphòng ${s[8]}`, dayOfExam, timeOfExam, [weekOfExam+''], '#ffffff'])
+            timeOfExam = `${s[7].replace('g', ':')} - ${s[7].split('g')[0]*1+2}:00`
+            exams.push(['Thi cuối kì' + s[1], `mã ${s[0]}\nnhóm-tổ ${s[2]}\nphòng ${s[8]}`, dayOfExam, timeOfExam, [weekOfExam+''], '#ffffff'])
         }
     })
     return exams
@@ -214,7 +214,7 @@ function handlingImport()
     updateSchedule()
 }
 
-colorOptions = ['aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'hotpink', 'lightcoral', 'orange']
+colorOptions = ['aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'hotpink', 'lightcoral', 'orange', '	springgreen', 'turquoise', 'violet', 'wheat']
 colorPanel = document.createElement('div')
 colorPanel.setAttribute('class', 'colorPanel')
 closeColorPanel = document.createElement('button')
