@@ -26,22 +26,21 @@ if(localStorage.getItem('eventSchedule'))
     eventSchedule = JSON.parse(localStorage.getItem('eventSchedule'))
 }
 
-for(row = 0; row < 24; row++)
+for(row = 0; row < 48; row++)
 {
     rect = document.createElement('div')
     rect.setAttribute('class', 'row')
     rect.style.top = 0
     rect.style.left = 0
-    rect.style.width = 700
-    rect.style.height = 50
-    rect.setAttribute('style', `top:${row*50}px; left:50px; border-color:black;`)
+    rect.style.height = 40
+    rect.setAttribute('style', `top:${row*40 + 30}px; left:50px; border-color:black;`)
     body.appendChild(rect)
 }
 for(row = 0; row < 24; row++)
 {
     hours = document.createElement('p')
     hours.innerText = row + 1 + ':00'
-    hours.setAttribute('style', `position:absolute; top:${row*50 + 25}px; left:5px;`)
+    hours.setAttribute('style', `position:absolute; top:${row*80 + 55}px; left:5px;`)
     body.appendChild(hours)
 }
 
@@ -52,12 +51,12 @@ function createCard(t, d, x, y, w, h, c)
     div = document.createElement('div')
     
     p1 = document.createElement('p')
-    p1.setAttribute('style', 'font-size:14px; margin:5px 5px 5px 5px;')
+    p1.setAttribute('style', 'font-size:18px; margin:5px 5px 5px 5px;')
     p1.innerText = t
     div.appendChild(p1)
     
     p2 = document.createElement('p')
-    p2.setAttribute('style', 'font-size:10px; margin: 5px 5px 5px 5px;')
+    p2.setAttribute('style', 'font-size:13px; margin: 5px 5px 5px 5px;')
     p2.innerText = d
     div.appendChild(p2)
     
@@ -87,7 +86,7 @@ function week(dt)
 
 function createDetailedCard (data)
 {     
-    coefficence = 50
+    coefficence = 80
     times = data[3].split(' - ')
     start = times[0].split(':')
     end = times[1].split(':')
@@ -120,7 +119,6 @@ function updateSchedule()
     examsSchedule.forEach( data =>{    
         if (data[4].includes(selectedWeek+''))
         {
-            console.log('test')
             detailedCards.push(createDetailedCard(data))
         }
     })
@@ -177,7 +175,7 @@ function examsParsing(data)
             dayOfExam = dateOfExam.getDay()
             dayOfExam = dayOfExam == 0 ? 8 : dayOfExam + 1
             timeOfExam = `${s[4].replace('g', ':')} - ${s[4].split('g')[0]*1+1}:15`
-            exams.push(['Thi giữa kì ' + s[1], `phòng ${s[5]}`, dayOfExam, timeOfExam, [weekOfExam+''], '#ffffff'])
+            exams.push(['Thi ' + s[1], `mã ${s[0]}\nnhóm-tổ ${s[2]}\nphòng ${s[5]}`, dayOfExam, timeOfExam, [weekOfExam+''], '#ffffff'])
         }        
         if (s[6] != '/')
         {
@@ -191,7 +189,7 @@ function examsParsing(data)
             dayOfExam = dateOfExam.getDay()
             dayOfExam = dayOfExam == 0 ? 8 : dayOfExam + 1
             timeOfExam = `${s[7].replace('g', ':')} - ${s[7].split('g')[0]*1+1}:15`
-            exams.push(['Thi cuối kì ' + s[1], `phòng ${s[8]}`, dayOfExam, timeOfExam, [weekOfExam+''], '#ffffff'])
+            exams.push(['Thi ' + s[1], `mã ${s[0]}\nnhóm-tổ ${s[2]}\nphòng ${s[8]}`, dayOfExam, timeOfExam, [weekOfExam+''], '#ffffff'])
         }
     })
     return exams
@@ -216,7 +214,7 @@ function handlingImport()
     updateSchedule()
 }
 
-colorOptions = ['#ffffff', 'aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'hotpink', 'lightcoral', 'orange']
+colorOptions = ['aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'hotpink', 'lightcoral', 'orange']
 colorPanel = document.createElement('div')
 colorPanel.setAttribute('class', 'colorPanel')
 closeColorPanel = document.createElement('button')
@@ -244,7 +242,7 @@ function handlingColorPicking()
         optionWraper.appendChild(colorTitle)
         deleteSchedule = document.createElement('button')
         deleteSchedule.setAttribute('class', 'rectangularButton')
-        deleteSchedule.setAttribute('style', 'color:white; background-color:#ff4343;')
+        deleteSchedule.setAttribute('style', 'color:white; background-color:#ff4343; font-size:12px; padding: 3px 3px; margin: 0px 3px;')
         deleteSchedule.innerText = 'xóa'    
         scheduleIndex = coursesSchedule.indexOf(schedule)
         deleteSchedule.setAttribute('onClick', `coursesSchedule.splice(${scheduleIndex}, 1); updateSchedule(); handlingColorPicking()`)
