@@ -126,9 +126,9 @@ function updateSchedule()
     })
     eventSchedule.forEach( data =>{
     
-        detailedCards.push(createDetailedCard(data))
         if (data[4].includes(selectedWeek+''))
         {
+            detailedCards.push(createDetailedCard(data))
         }
     })
 
