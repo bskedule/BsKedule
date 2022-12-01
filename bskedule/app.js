@@ -2,12 +2,13 @@ body = document.body
 var raw
 var preRaw
 inputBox = body.querySelector('.inputBox')
+helpButton = document.getElementById("helpButton")
 coursesPattern = /([A-Z]{2,2}\d{4,4})\t([^\t]+)\t([\d-]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^A-Z]+)/g
 examsPattern = /([^\t\s]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t\s]+)/g
 scheduleWraper = document.createElement('div')
 scheduleWraper.setAttribute('class', 'scheduleWraper')
 body.appendChild(scheduleWraper)
-selectedWeek = week(new Date())
+selectedWeek = Number(week(new Date()))%52
 detailedCards = []
 coursesSchedule = []
 examsSchedule = []
@@ -46,6 +47,11 @@ for(row = 0; row < 24; row++)
 }
 
 
+helpButton.addEventListener("click", function(){
+    alert(
+        'Vào trang lịch học hoặc lịch thi \n Trên máy tính: nhấn Ctrl + A, Ctrl + C. Rồi về trang này, click vào ô ở dưới và nhấn Ctrl + V \n Trên điện thoại: bấm và giữ 1 chữ nào đó trong trang, bấm "chọn tất cả", bấm "sao chép". Rồi về trang này, bấm vào ô ở dưới, nhấn và giữ ô, bấm "dán"'
+    )
+})
 
 function createCard(t, d, x, y, w, h, c)
 {
@@ -214,9 +220,10 @@ function handlingImport()
         return
     }
     updateSchedule()
+    alert("The calender is updated.")
 }
 
-colorOptions = ['#ffffff', '#00cccc']
+colorOptions = ['#ffffff', '#00cccc', '#8ECAE6', '#219EBC', '#023047', '#FFB703', '#FB8500']
 colorPanel = document.createElement('div')
 colorPanel.setAttribute('class', 'colorPanel')
 closeColorPanel = document.createElement('button')
@@ -321,12 +328,11 @@ function addEvent()
     eventTitle = document.querySelector('.eventTitle').value
     eventContent = document.querySelector('.eventContent').value
     dayField = document.querySelector('.day').value * 1
-    // if(startHour >= 0 && startHour <= 23 && endHour >= 0 && endHour <= 23 && (startHour < endHour || (startHour == endHour && startMinute < endMinute)) && startMinute >= 0 && startMinute <= 59 && endMinute >= 0 && endMinute <= 59)
+    if(startHour >= 0 && startHour <= 23 && endHour >= 0 && endHour <= 23 && (startHour < endHour || (startHour == endHour && startMinute < endMinute)) && startMinute >= 0 && startMinute <= 59 && endMinute >= 0 && endMinute <= 59)
     {
         eventSchedule.push([eventTitle, eventContent, dayField, `${startHour}:${startMinute} - ${endHour}:${endMinute}`, [selectedWeek], '#ffffffff'])
         updateSchedule()
     }
-    console.log('test')
 }
 
 function save ()

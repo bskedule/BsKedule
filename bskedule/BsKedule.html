@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Your calendar</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/bskedule/BsKedule.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="prompt addPanel" style="display:none">
+        <button class="button" style="margin: 20px 0px 0px 20px" onClick="
+        document.querySelector('.addPanel').setAttribute('style', 'display:none;')
+        document.querySelector('.importButton').setAttribute('style', 'display:inline-block');
+        document.querySelector('.editButton').setAttribute('style', 'display:inline-block');
+        document.querySelector('.addButton').setAttribute('style', 'display:inline-block');">x</button>
+        <p style="margin: 20px 20px 2px 20px">Tiêu đề</p>
+        <input type="text" class="longField eventTitle">
+        <p style="margin: 20px 20px 2px 20px">Nội dung</p>
+        <input type="text" class="longField eventContent">
+        <p style="margin: 20px 20px 2px 20px">Thời gian</p>
+        <div style="display: flex; margin: 0px 0px 0px 20px;">
+            <p style="margin:0px 0;">từ</p>
+            <input type="text" class="startHour timeInput" style="margin-left:5px">
+            <p style="margin:0 0;"> : </p>
+            <input type="text" class="startMinute timeInput" style="margin-right:5px">
+            <p style="margin:0 0;">đến</p>
+            <input type="text" class="endHour timeInput" style="margin-left:5px">
+            <p style="margin:0 0;"> : </p>
+            <input type="text" class="endMinute timeInput" style="margin-right:50px">
+            <p style="margin:0 0;">thứ</p>
+            <input type="text" class="day timeInput" style="margin-left:5px">
+
+    </div>
+        <button class="rectangularButton onclick="addEvent(); save()">thêm</button>
+    </div>
+    <div class="prompt importPanel" style="display:none">
+        <button class="button" style="margin: 20px 0px 0px 20px" onClick="
+        document.querySelector('.importPanel').setAttribute('style', 'display:none;')
+        document.querySelector('.importButton').setAttribute('style', 'display:inline-block');
+        document.querySelector('.editButton').setAttribute('style', 'display:inline-block');
+        document.querySelector('.addButton').setAttribute('style', 'display:inline-block');
+        ">x</button>
+        <p style="margin: 20px 20px 2px 20px">Vào trang lịch học hoặc lịch thi</p>
+        <p style="margin: 20px 20px 2px 20px">Trên Windows: nhấn Ctrl + A, Ctrl + C. Rồi về trang này, click vào ô ở dưới và nhấn Ctrl + V</p>
+        <p style="margin: 20px 20px 2px 20px">Trên điện thoại: bấm và giữ 1 chữ nào đó trong trang, bấm "chọn tất cả", bấm "sao chép". Rồi về trang này, bấm vào ô ở dưới, nhấn và giữ ô, bấm "dán"</p>
+        <input type="text" class="longField rawInput" style="margin: 20px 20px;">
+        <button style="margin: 20px 20px" class="rectangularButton" onclick="handlingImport(); save()">nhập</button>
+
+    </div>
+    <div class="buttonWraper">
+        <button class="rectangularButton" onclick="selectedWeek--; updateSchedule()" style="width: 50px; height: 50px"><</button>
+        <button class="rectangularButton" onclick="selectedWeek++; updateSchedule()" style="width: 50px; height: 50px">></button>
+        <button class="rectangularButton" onclick="selectedWeek = week(new Date()); updateSchedule()" style="width: fit-content; height: 50px">tuần hiện tại</button>
+        <button class="rectangularButton importButton" onclick="
+        document.querySelector('.importButton').setAttribute('style', 'display:none');
+        document.querySelector('.editButton').setAttribute('style', 'display:none');
+        document.querySelector('.addButton').setAttribute('style', 'display:none');
+        document.querySelector('.importPanel').setAttribute('style', 'display:inline-block');">nhập lịch</button>
+        <button class="rectangularButton editButton" onclick="
+        handlingColorPicking();
+        document.querySelector('.importButton').setAttribute('style', 'display:none'); 
+        document.querySelector('.editButton').setAttribute('style', 'display:none');
+        document.querySelector('.addButton').setAttribute('style', 'display:none');
+        document.querySelector('.colorPanelWraper').setAttribute('style', 'display:inline-block');">chỉnh sửa</button>
+        <button class="rectangularButton addButton" onclick="
+        document.querySelector('.importButton').setAttribute('style', 'display:none');
+        document.querySelector('.addButton').setAttribute('style', 'display:none');
+        document.querySelector('.editButton').setAttribute('style', 'display:none');
+        document.querySelector('.addPanel').setAttribute('style', 'display:inline-block');">thêm sự kiện</button>
+        <p class="weekText"></p>
+        
+    </div>
+    <div class="topBar">
+        <p class="dayOfWeek">Thứ hai</p>
+        <p class="dayOfWeek">Thứ ba</p>
+        <p class="dayOfWeek">Thứ tư</p>
+        <p class="dayOfWeek">Thứ năm</p>
+        <p class="dayOfWeek">Thứ sáu</p>
+        <p class="dayOfWeek">Thứ bảy</p>
+        <p class="dayOfWeek">Chủ Nhật</p>
+    </div>
+    <script src="/bskedule/app.js"></script>
+    <div class="modal"></div>
+</body>
+</html>
