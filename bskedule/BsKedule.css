@@ -44,7 +44,6 @@ body {
     height: auto;
     z-index: 100;
     background-color: white;
-    max-width: 500px;
   }
   
   @keyframes slideIn {
@@ -86,12 +85,14 @@ body {
 }
 
 .rectangularButton {
+  font-size:25px;
   border-radius: 5px;
   border-color: #00000000;
   width: 10vh;
   margin: 0.5vh 0.5vh 0.5vh 0.5vh;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  padding: 10px 10px;
 }
 
 .rectangularButton:hover {
@@ -107,6 +108,7 @@ body {
   display: flex;
   flex-flow: column;
   align-items: center;
+  font-size:18px;
   position: fixed;
   bottom: 0;
   right: 0;

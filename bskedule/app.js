@@ -27,7 +27,7 @@ if(localStorage.getItem('eventSchedule'))
 }
 
 // Create lines
-for(let row = 0; row < 24; row++)
+for(let row = 0; row < 48; row++)
 {
     let rect = document.createElement('div');
     rect.setAttribute('class', 'row');
@@ -157,15 +157,14 @@ function updateSchedule()
     examsSchedule.forEach( data =>{    
         if (data[4].includes(selectedWeek+''))
         {
-            console.log('test')
             detailedCards.push(createDetailedCard(data))
         }
     })
     eventSchedule.forEach( data =>{
     
-        detailedCards.push(createDetailedCard(data))
         if (data[4].includes(selectedWeek+''))
         {
+            detailedCards.push(createDetailedCard(data))
         }
     })
 
@@ -213,8 +212,8 @@ function examsParsing(data)
             weekOfExam = week(dateOfExam)
             dayOfExam = dateOfExam.getDay()
             dayOfExam = dayOfExam == 0 ? 8 : dayOfExam + 1
-            timeOfExam = `${s[4].replace('g', ':')} - ${s[4].split('g')[0]*1+1}:15`
-            exams.push(['Thi ' + s[1], `mã ${s[0]}\nnhóm-tổ ${s[2]}\nphòng ${s[5]}`, dayOfExam, timeOfExam, [weekOfExam+''], '#ffffff'])
+            timeOfExam = `${s[4].replace('g', ':')} - ${s[4].split('g')[0]*1+2}:00`
+            exams.push(['Thi giữa kì' + s[1], `mã ${s[0]}\nnhóm-tổ ${s[2]}\nphòng ${s[5]}`, dayOfExam, timeOfExam, [weekOfExam+''], '#ffffff'])
         }        
         if (s[6] != '/')
         {
@@ -227,8 +226,8 @@ function examsParsing(data)
             weekOfExam = week(dateOfExam)
             dayOfExam = dateOfExam.getDay()
             dayOfExam = dayOfExam == 0 ? 8 : dayOfExam + 1
-            timeOfExam = `${s[7].replace('g', ':')} - ${s[7].split('g')[0]*1+1}:15`
-            exams.push(['Thi ' + s[1], `mã ${s[0]}\nnhóm-tổ ${s[2]}\nphòng ${s[8]}`, dayOfExam, timeOfExam, [weekOfExam+''], '#ffffff'])
+            timeOfExam = `${s[7].replace('g', ':')} - ${s[7].split('g')[0]*1+2}:00`
+            exams.push(['Thi cuối kì' + s[1], `mã ${s[0]}\nnhóm-tổ ${s[2]}\nphòng ${s[8]}`, dayOfExam, timeOfExam, [weekOfExam+''], '#ffffff'])
         }
     })
     return exams
@@ -283,7 +282,7 @@ function handlingColorPicking()
         optionWraper.appendChild(colorTitle)
         deleteSchedule = document.createElement('button')
         deleteSchedule.setAttribute('class', 'rectangularButton')
-        deleteSchedule.setAttribute('style', 'color:white; background-color:#ff4343;')
+        deleteSchedule.setAttribute('style', 'color:white; background-color:#ff4343; font-size:12px; padding: 3px 3px; margin: 0px 3px;')
         deleteSchedule.innerText = 'xóa'    
         scheduleIndex = coursesSchedule.indexOf(schedule)
         deleteSchedule.setAttribute('onClick', `coursesSchedule.splice(${scheduleIndex}, 1); updateSchedule(); handlingColorPicking()`)
