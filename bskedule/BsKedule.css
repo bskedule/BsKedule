@@ -88,11 +88,10 @@ body {
 .rectangularButton {
   border-radius: 5px;
   border-color: #00000000;
-  width: fit-content;
-  height: 25px;
+  width: 10vh;
+  margin: 0.5vh 0.5vh 0.5vh 0.5vh;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  margin: 0px 2px;
 }
 
 .rectangularButton:hover {
@@ -105,30 +104,36 @@ body {
   align-items: center;
 }
 .buttonWraper {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   position: fixed;
-  bottom: 0%;
+  bottom: 0;
+  right: 0;
   z-index: 2;
   width: fit-content;
 }
 .row {
   height: 50px;
-  width: 700px;
+  width: 100vw;
   border-bottom: solid;
   border-width: 0.5px;
   position: absolute;
   z-index: -1;
 }
 .topBar {
-  left: 50px;
+  left: 15vw;
   position: fixed;
   display: flex;
-  width: 700px;
+  width: 100%;
   z-index: 1;
   border-radius: 5px;
   background-color: aliceblue;
 }
 .dayOfWeek{
-  width: 100px;
+  width: 10vw;
+  font-size: 2vw;
+  margin: 1vw;
   text-align: center;
 }
 

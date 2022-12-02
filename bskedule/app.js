@@ -1,18 +1,17 @@
-body = document.body
-var raw
-var preRaw
-inputBox = body.querySelector('.inputBox')
-helpButton = document.getElementById("helpButton")
-coursesPattern = /([A-Z]{2,2}\d{4,4})\t([^\t]+)\t([\d-]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^A-Z]+)/g
-examsPattern = /([^\t\s]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t\s]+)/g
-scheduleWraper = document.createElement('div')
+let body = document.body;
+let yourCalender = document.getElementById("calendar");
+let raw
+let preRaw
+let coursesPattern = /([A-Z]{2,2}\d{4,4})\t([^\t]+)\t([\d-]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^A-Z]+)/g
+let examsPattern = /([^\t\s]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t\s]+)/g
+let scheduleWraper = document.createElement('div')
 scheduleWraper.setAttribute('class', 'scheduleWraper')
 body.appendChild(scheduleWraper)
-selectedWeek = Number(week(new Date()))%52
-detailedCards = []
-coursesSchedule = []
-examsSchedule = []
-eventSchedule = []
+let selectedWeek = (week(new Date()))%53
+let detailedCards = []
+let coursesSchedule = []
+let examsSchedule = []
+let eventSchedule = []
 
 if(localStorage.getItem('coursesSchedule'))
 {
@@ -27,46 +26,72 @@ if(localStorage.getItem('eventSchedule'))
     eventSchedule = JSON.parse(localStorage.getItem('eventSchedule'))
 }
 
-for(row = 0; row < 24; row++)
+// Create lines
+for(let row = 0; row < 24; row++)
 {
-    rect = document.createElement('div')
-    rect.setAttribute('class', 'row')
-    rect.style.top = 0
-    rect.style.left = 0
-    rect.style.width = 700
-    rect.style.height = 50
-    rect.setAttribute('style', `top:${row*50}px; left:50px; border-color:black;`)
-    body.appendChild(rect)
+    let rect = document.createElement('div');
+    rect.setAttribute('class', 'row');
+    // rect.style.top = "5vh";
+    // rect.style.left = "5vw";
+    // rect.style.width = "80vw";
+    // rect.style.height = "80vh";
+    rect.setAttribute('style', `top:${row*50}px; left:0; border-color:black;`)
+    yourCalender.appendChild(rect)
 }
-for(row = 0; row < 24; row++)
+// Create times on the left side
+for(let row = 0; row < 24; row++)
 {
-    hours = document.createElement('p')
+    let hours = document.createElement('p')
     hours.innerText = row + 1 + ':00'
-    hours.setAttribute('style', `position:absolute; top:${row*50 + 25}px; left:5px;`)
-    body.appendChild(hours)
+    hours.setAttribute('style', `position:absolute; top:${row*50 + 25}px; left:-5vw;`)
+    yourCalender.appendChild(hours)
 }
 
+// String 1 modification
+function letterModify(theString) {
+    // Sentence case
+    let newString = theString.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g,function(c){return c.toUpperCase()});
+    // No abbreviation
+    let abbreviationCode = ["(tn)", "(th)", "(bt)"];
+    let fullCode = ["(thí nghiệm)", "(thực hành)", "(bài tập)"];
+    for (let i=0; i<fullCode.length; i++){
+        if (newString.includes(abbreviationCode[i])){
+            newString = newString.replace(abbreviationCode[i], fullCode[i]);
+        }
+    }
+    // Vietnamese
+    let nonViet = ["Giai tich", "He thong", "Ki thuat", "ki thuat", "Nhap mon", "dien toan", "Co so", "so", "Vat li", "vat lieu", "ban dan", "Hoa", "hoc", "dai cuong", "Tieng Nhat", "Co hoc", "Ly thuyet", "ly thuyet"];
+    let forViet = ["Giải tích", "Hệ thống", "Kĩ thuật", "kĩ thuật", "Nhập môn", "điện toán", "Cơ sở", "số", "Vật lí", "vật liệu", "bán dẫn", "Hoá", "học", "đại cưong", "Tiếng Nhật", "Cơ học", "Lý thuyết", "lý thuyết"];
+    for (let i=0; i<nonViet.length; i++){
+        if (newString.includes(nonViet[i])){
+            newString = newString.replace(nonViet[i], forViet[i]);
+        }
+    }
+    return newString;
+}
+// String 2 modification
+function contentModify(theString){
+    if (theString.includes("SAN")){
+        newString=theString.replace("SAN", "sân");
+        return newString;
+    }
+}
 
-helpButton.addEventListener("click", function(){
-    alert(
-        'Vào trang lịch học hoặc lịch thi \n Trên máy tính: nhấn Ctrl + A, Ctrl + C. Rồi về trang này, click vào ô ở dưới và nhấn Ctrl + V \n Trên điện thoại: bấm và giữ 1 chữ nào đó trong trang, bấm "chọn tất cả", bấm "sao chép". Rồi về trang này, bấm vào ô ở dưới, nhấn và giữ ô, bấm "dán"'
-    )
-})
-
+// Create lecture card
 function createCard(t, d, x, y, w, h, c)
 {
-    div = document.createElement('div')
-    
-    p1 = document.createElement('p')
-    p1.setAttribute('style', 'font-size:14px; margin:5px 5px 5px 5px;')
+    let div = document.createElement('div')
+    // p1 content is t - stands for title   
+    let p1 = document.createElement('p')
+    p1.setAttribute('style', 'font-size:90%; margin:5px 5px 5px 5px;')
     p1.innerText = t
     div.appendChild(p1)
-    
-    p2 = document.createElement('p')
-    p2.setAttribute('style', 'font-size:10px; margin: 5px 5px 5px 5px;')
+    // p2 content is d - stands for description
+    let p2 = document.createElement('p')
+    p2.setAttribute('style', 'font-size:xx-small; margin: 5px 5px 5px 5px;')
     p2.innerText = d
     div.appendChild(p2)
-    
+    // div is card
     div.setAttribute('class', 'card')
     div.setAttribute('style','background-color:' + c )
     div.style.width = w
@@ -75,7 +100,6 @@ function createCard(t, d, x, y, w, h, c)
     div.style.left = x
     return div
 }
-
 
 function week(dt) 
 {
@@ -93,17 +117,24 @@ function week(dt)
 
 function createDetailedCard (data)
 {     
-    coefficence = 50
-    times = data[3].split(' - ')
-    start = times[0].split(':')
-    end = times[1].split(':')
-    position = (start[0]*1 + start[1]/60)*coefficence 
-    size = ((end[0]*1 + end[1]/60) - (start[0]*1 + start[1]/60))*coefficence
-
-    card = createCard(data[0], data[1], (data[2]-2)*100 + 50 +"px", position + "px", "95px", size+"px", data[5]);
+    let coefficence = 50;
+    let lesson = letterModify(data[0]);
+    let content = contentModify(data[1]);
+    let times = data[3].split(' - ');
+    let start = times[0].split(':');
+    let end = times[1].split(':');
+    let position = (start[0]*1 + start[1]/60)*coefficence;
+    let size = ((end[0]*1 + end[1]/60) - (start[0]*1 + start[1]/60))*coefficence;
+    // t = data[0]
+    // d = data[1]
+    // x = (data[2]-2)*100+50 px
+    // y = position
+    // w = 95px ~ 10vw
+    // h = size
+    // c = data[5]
+    let card = createCard(lesson, content, (12*data[2]-8) +"vw", position + "px", "10vw", size+"px", data[5]);
     return card
 }
-
 
 function updateSchedule()
 {
@@ -141,7 +172,7 @@ function updateSchedule()
     detailedCards.forEach(card =>{
         scheduleWraper.appendChild(card)
     })
-    document.querySelector('.weekText').innerText = 'Đang xem tuần ' + selectedWeek
+    document.querySelector('.weekText').innerText = 'Week ' + selectedWeek
 }
 
 function courseParsing(data)
@@ -206,7 +237,8 @@ function examsParsing(data)
 
 function handlingImport()
 {
-    raw = document.querySelector('.rawInput').value
+    raw = localStorage.getItem('rawData');
+    console.log("OK");
     if (coursesPattern.test(raw))
     {
         coursesSchedule = courseParsing(raw)
@@ -223,13 +255,13 @@ function handlingImport()
     alert("The calender is updated.")
 }
 
-colorOptions = ['#ffffff', '#00cccc', '#8ECAE6', '#219EBC', '#023047', '#FFB703', '#FB8500']
-colorPanel = document.createElement('div')
+let colorOptions = ['#ffffff', '#00cccc', '#8ECAE6', '#219EBC', '#023047', '#FFB703', '#FB8500']
+let colorPanel = document.createElement('div')
 colorPanel.setAttribute('class', 'colorPanel')
-closeColorPanel = document.createElement('button')
+let closeColorPanel = document.createElement('button')
 closeColorPanel.innerText = 'x'
 closeColorPanel.setAttribute('class', 'button')
-colorPanelWraper = document.createElement('div')
+let colorPanelWraper = document.createElement('div')
 colorPanelWraper.setAttribute('class', 'prompt colorPanelWraper')
 colorPanelWraper.appendChild(colorPanel)
 closeColorPanel.setAttribute('onClick', "document.querySelector('.colorPanelWraper').setAttribute('style', 'display:none;'); document.querySelector('.importButton').setAttribute('style', 'display:inline-block'); document.querySelector('.editButton').setAttribute('style', 'display:inline-block'); document.querySelector('.addButton').setAttribute('style', 'display:inline-block');")
@@ -318,7 +350,6 @@ function handlingColorPicking()
 colorPanelWraper.setAttribute('style', 'display:none')
 body.appendChild(colorPanelWraper)
 
-
 function addEvent()
 {
     startHour = document.querySelector('.startHour').value * 1
@@ -341,4 +372,6 @@ function save ()
     localStorage.setItem('examsSchedule', JSON.stringify(examsSchedule))
     localStorage.setItem('eventSchedule', JSON.stringify(eventSchedule))
 }
-updateSchedule()
+handlingImport();
+save();
+updateSchedule();
