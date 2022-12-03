@@ -31,7 +31,7 @@ for(let row = 0; row < 47; row++)
 {
     let rect = document.createElement('div');
     rect.setAttribute('class', 'row');
-    rect.setAttribute('style', `top:${row*25}px; left:0; border-color:black;`)
+    rect.setAttribute('style', `top:${row*25+25}px; left:0; border-color:black;`)
     yourCalender.appendChild(rect)
 }
 // Create times on the left side
@@ -39,7 +39,7 @@ for(let row = 0; row < 24; row++)
 {
     let hours = document.createElement('p')
     hours.innerText = row + 1 + ':00'
-    hours.setAttribute('style', `position:absolute; top:${row*50 + 25}px; left:-5vw;`)
+    hours.setAttribute('style', `position:absolute; top:${row*50 + 50}px;`)
     yourCalender.appendChild(hours)
 }
 
@@ -80,12 +80,10 @@ function createCard(t, d, x, y, w, h, c)
     let div = document.createElement('div')
     // p1 content is t - stands for title   
     let p1 = document.createElement('p')
-    p1.setAttribute('style', 'font-size:90%; margin:5px 5px 5px 5px;')
     p1.innerText = t
     div.appendChild(p1)
     // p2 content is d - stands for description
     let p2 = document.createElement('p')
-    p2.setAttribute('style', 'font-size:xx-small; margin: 5px 5px 5px 5px;')
     p2.innerText = d
     div.appendChild(p2)
     // div is card
@@ -115,8 +113,6 @@ function week(dt)
 function createDetailedCard (data)
 {     
     let coefficence = 50;
-    let lesson = letterModify(data[0]);
-    let content = contentModify(data[1]);
     let times = data[3].split(' - ');
     let start = times[0].split(':');
     let end = times[1].split(':');
@@ -129,7 +125,7 @@ function createDetailedCard (data)
     // w = 95px ~ 10vw
     // h = size
     // c = data[5]
-    let card = createCard(lesson, content, (12*data[2]-13) +"vw", position + "px", "10vw", size+"px", data[5]);
+    let card = createCard(data[0], data[1], (12*data[2]-14) +"vw", position + "px", "10vw", size+"px", data[5]);
     return card
 }
 
@@ -185,6 +181,10 @@ function courseParsing(data)
         {
           courses.push([parsedRaw[i][1], 'mã ' + parsedRaw[i][0] + '\nlớp ' + parsedRaw[i][4] + '\n phòng ' + parsedRaw[i][8], parsedRaw[i][5], parsedRaw[i][7], parsedRaw[i][10], '#ffffff'])
         }
+    for (let i=0; i<courses.length; i++) {
+        courses[i][0] = letterModify(courses[i][0]);
+        courses[i][1] = contentModify(courses[i][1]);
+    }
     return courses
 }
 
@@ -250,7 +250,56 @@ function handlingImport()
     updateSchedule()
 }
 
-let colorOptions = ['#ffffff', '#00cccc', '#8ECAE6', '#219EBC', '#023047', '#FFB703', '#FB8500']
+// Adding Color Panel
+let redval = document.getElementById("redval");
+let greenval = document.getElementById("greenval");
+let blueval = document.getElementById("blueval");
+
+let slidered = document.getElementById("slideRed");
+let slidegreen = document.getElementById("slideGreen");
+let slideblue = document.getElementById("slideBlue");
+
+// let hueval = document.getElementById("hueval");
+// let saturationval = document.getElementById("saturationval");
+// let lightval = document.getElementById("lightval");
+
+// let slidehue = document.getElementById("slideHue");
+// let slidesaturation = document.getElementById("slideSaturation");
+// let slidelight = document.getElementById("slideLight");
+
+slidered.oninput = () => {
+    redval.innerHTML = slidered.value;
+    document.getElementById("resclr").style.backgroundColor = `rgb(${slidered.value},${slidegreen.value},${slideblue.value})`;
+    document.getElementById("Rclr").style.backgroundColor = `rgb(${slidered.value},0,0)`;
+}
+slidegreen.oninput = () => {
+    greenval.innerHTML = slidegreen.value;
+    document.getElementById("resclr").style.backgroundColor = `rgb(${slidered.value},${slidegreen.value},${slideblue.value})`;
+    document.getElementById("Gclr").style.backgroundColor = `rgb(0,${slidegreen.value},0)`;
+}
+slideblue.oninput = () => {
+    blueval.innerHTML = slideblue.value;
+    document.getElementById("resclr").style.backgroundColor = `rgb(${slidered.value},${slidegreen.value},${slideblue.value})`;
+    document.getElementById("Bclr").style.backgroundColor = `rgb(0,0,${slideblue.value})`;
+}
+
+let colorOptions = ['#ffffff', '#95DAFC', '#D2EAF5', '#9CDEEE', '#FFE29A', '#FFCE97', '#42A6D5']
+function rgbToHex(r, g, b) {
+    return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
+}
+// function valueToHex(c) {
+//     var hex = c.toString(16);
+//     return hex
+// }
+// function rgbToHex(r, g, b) {
+//     return(valueToHex(r) + valueToHex(g) + valueToHex(b));
+// }
+function addingColor() {
+    console.group(rgbToHex(slidered.value, slidegreen.value, slideblue.value));
+    colorOptions.push(rgbToHex(slidered.value, slidegreen.value, slideblue.value));
+    alert("Adding color successfully !")
+}
+
 let colorPanel = document.createElement('div')
 colorPanel.setAttribute('class', 'colorPanel')
 let closeColorPanel = document.createElement('button')
@@ -272,15 +321,18 @@ function handlingColorPicking()
     coursesSchedule.forEach((schedule, index) =>{
         optionWraper = document.createElement('div')
         optionWraper.setAttribute('class', 'optionWraper')
+
         colorTitle = document.createElement('p')
         colorTitle.setAttribute('class', 'colorTitle')
         colorTitle.innerText = schedule[0]
         optionWraper.appendChild(colorTitle)
+        
+        scheduleIndex = coursesSchedule.indexOf(schedule)
+
         deleteSchedule = document.createElement('button')
         deleteSchedule.setAttribute('class', 'rectangularButton')
         deleteSchedule.setAttribute('style', 'color:white; background-color:#ff4343; font-size:12px; padding: 3px 3px; margin: 0px 3px;')
         deleteSchedule.innerText = 'xóa'    
-        scheduleIndex = coursesSchedule.indexOf(schedule)
         deleteSchedule.setAttribute('onClick', `coursesSchedule.splice(${scheduleIndex}, 1); updateSchedule(); handlingColorPicking()`)
         optionWraper.appendChild(deleteSchedule)
         colorOptions.forEach( (color) =>{
@@ -294,51 +346,58 @@ function handlingColorPicking()
         colorPanel.appendChild(optionWraper)
 
             })  
-        })
+    })
     examsSchedule.forEach((schedule, index) =>{
+        optionWraper = document.createElement('div')
+        optionWraper.setAttribute('class', 'optionWraper')
+
         colorTitle = document.createElement('p')
         colorTitle.setAttribute('class', 'colorTitle')
         colorTitle.innerText = schedule[0]
-        colorPanel.appendChild(colorTitle)
+        optionWraper.appendChild(colorTitle)
+
+        deleteSchedule = document.createElement('button')
+        deleteSchedule.setAttribute('onClick', `coursesSchedule.splice(${scheduleIndex}, 1); updateSchedule(); handlingColorPicking()`)
         deleteSchedule.setAttribute('class', 'rectangularButton')
         deleteSchedule.setAttribute('style', 'color:white; background-color:#ff4343;')
         deleteSchedule.innerText = 'xóa'    
+
         scheduleIndex = coursesSchedule.indexOf(schedule)
         deleteSchedule.setAttribute('onClick', `examsSchedule.splice(${scheduleIndex}, 1); updateSchedule(); handlingColorPicking()`)
-        colorPanel.appendChild(deleteSchedule)
+        optionWraper.appendChild(deleteSchedule)
         colorOptions.forEach( (color) =>{
         {
             button = document.createElement('button')
             button.setAttribute('class', 'button')
             button.setAttribute('style', 'background-color: ' + color)
             button.setAttribute('onClick', 'handlingColorPicking(); examsSchedule[' + index + '][5] = "' + color + '"; updateSchedule()')
+            optionWraper.appendChild(button)
+        } 
+        colorPanel.appendChild(optionWraper)
+        })
+    })
+    eventSchedule.forEach((schedule, index) =>{
+        colorTitle = document.createElement('p')
+        colorTitle.setAttribute('class', 'colorTitle')
+        colorTitle.innerText = schedule[0]
+        colorPanel.appendChild(colorTitle)
+        deleteSchedule.setAttribute('class', 'rectangularButton')
+        deleteSchedule.setAttribute('style', 'color:white; background-color:#ff4343;')
+        deleteSchedule.innerText = 'xóa'        
+        scheduleIndex = coursesSchedule.indexOf(schedule)
+        deleteSchedule.setAttribute('onClick', `eventSchedule.splice(${scheduleIndex}, 1); updateSchedule(); handlingColorPicking()`)
+        colorPanel.appendChild(deleteSchedule)    
+        colorOptions.forEach( (color) =>{
+        {
+            button = document.createElement('button')
+            button.setAttribute('class', 'button')
+            button.setAttribute('style', 'background-color: ' + color)
+            button.setAttribute('onClick', 'handlingColorPicking(); eventSchedule[' + index + '][5] = "' + color + '"; updateSchedule()')
             colorPanel.appendChild(button)
         } 
 
             })  
-        })
-        eventSchedule.forEach((schedule, index) =>{
-            colorTitle = document.createElement('p')
-            colorTitle.setAttribute('class', 'colorTitle')
-            colorTitle.innerText = schedule[0]
-            colorPanel.appendChild(colorTitle)
-            deleteSchedule.setAttribute('class', 'rectangularButton')
-            deleteSchedule.setAttribute('style', 'color:white; background-color:#ff4343;')
-            deleteSchedule.innerText = 'xóa'        
-            scheduleIndex = coursesSchedule.indexOf(schedule)
-            deleteSchedule.setAttribute('onClick', `eventSchedule.splice(${scheduleIndex}, 1); updateSchedule(); handlingColorPicking()`)
-            colorPanel.appendChild(deleteSchedule)    
-            colorOptions.forEach( (color) =>{
-            {
-                button = document.createElement('button')
-                button.setAttribute('class', 'button')
-                button.setAttribute('style', 'background-color: ' + color)
-                button.setAttribute('onClick', 'handlingColorPicking(); eventSchedule[' + index + '][5] = "' + color + '"; updateSchedule()')
-                colorPanel.appendChild(button)
-            } 
-    
-                })  
-            })
+    })
     colorPanelWraper.appendChild(colorPanel)
     save()
 }

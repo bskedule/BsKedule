@@ -16,13 +16,14 @@
 
 <body>
     <!-- Navbar -->
-    <div class="w3-top" style="z-index: 4;">
+    <div class="w3-top" style="z-index: 4; width: 100vw;">
         <div class="w3-bar w3-black w3-card">
         <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">HOMEPAGE</a>
+        <a href="/index.html" class="w3-bar-item w3-button w3-padding-large">HOMEPAGE</a>
         <a href="/#identity" class="w3-bar-item w3-button w3-padding-large w3-hide-small">THE YOUNG SHARKS</a>
         <a href="/#input-form" class="w3-bar-item w3-button w3-padding-large w3-hide-small">INPUT</a>
         <a href="/#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CONTACT</a>
+        <a href="/bskedule/BsKedule.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small">YOUR CALENDAR</a>
         <!-- <div class="w3-dropdown-hover w3-hide-small">
             <button class="w3-padding-large w3-button" title="More">MORE <i class="fa fa-caret-down"></i></button>     
             <div class="w3-dropdown-content w3-bar-block w3-card-4">
@@ -42,51 +43,110 @@
         document.querySelector('.importButton').setAttribute('style', 'display:inline-block');
         document.querySelector('.editButton').setAttribute('style', 'display:inline-block');
         document.querySelector('.addButton').setAttribute('style', 'display:inline-block');">x</button>
-        <p style="margin: 20px 20px 2px 20px">Tiêu đề</p>
+        <p style="margin: 20px 20px 2px 20px">Title</p>
         <input type="text" class="longField eventTitle">
-        <p style="margin: 20px 20px 2px 20px">Nội dung</p>
+        <p style="margin: 20px 20px 2px 20px">Content</p>
         <input type="text" class="longField eventContent">
-        <p style="margin: 20px 20px 2px 20px">Thời gian</p>
+        <p style="margin: 20px 20px 2px 20px">Time</p>
         <div style="display: flex; margin: 0px 0px 0px 20px;">
-            <p style="margin:0px 0;">từ</p>
+            <p style="margin:0px 0;">From</p>
             <input type="text" class="startHour timeInput" style="margin-left:5px">
             <p style="margin:0 0;"> : </p>
             <input type="text" class="startMinute timeInput" style="margin-right:5px">
-            <p style="margin:0 0;">đến</p>
+            <p style="margin:0 0;">to</p>
             <input type="text" class="endHour timeInput" style="margin-left:5px">
             <p style="margin:0 0;"> : </p>
             <input type="text" class="endMinute timeInput" style="margin-right:50px">
-            <p style="margin:0 0;">thứ</p>
+            <p style="margin:0 0;">Day of week</p>
             <input type="text" class="day timeInput" style="margin-left:5px">
 
         </div>
         <button class="rectangularButton onclick=" addEvent(); save()">thêm</button>
     </div>
 
+    <div class="prompt importPanel" style="display:none">
+        <button class="button" style="margin: 20px 0px 0px 20px" onClick="
+        document.querySelector('.importPanel').setAttribute('style', 'display:none;')
+        document.querySelector('.importButton').setAttribute('style', 'display:inline-block');
+        document.querySelector('.editButton').setAttribute('style', 'display:inline-block');
+        document.querySelector('.addButton').setAttribute('style', 'display:inline-block');
+        ">x</button>
+        <p style="margin: 20px 20px 2px 20px">Vào trang lịch học hoặc lịch thi</p>
+        <p style="margin: 20px 20px 2px 20px">Trên Windows: nhấn Ctrl + A, Ctrl + C. Rồi về trang này, click vào ô ở dưới và nhấn Ctrl + V</p>
+        <p style="margin: 20px 20px 2px 20px">Trên điện thoại: bấm và giữ 1 chữ nào đó trong trang, bấm "chọn tất cả", bấm "sao chép". Rồi về trang này, bấm vào ô ở dưới, nhấn và giữ ô, bấm "dán"</p>
+        <input type="text" class="longField rawInput" style="margin: 20px 20px;">
+        <button style="margin: 20px 20px" class="rectangularButton" onclick="handlingImport(); save()">nhập</button>
+    </div>
+
+    <div class="prompt addColorPanel" style="display: none">
+        <button class="button" style="margin: 20px 0px 0px 20px" onClick="
+        document.querySelector('.addColorPanel').setAttribute('style', 'display:none;')">x</button>
+        <table id="colorpicker", border="4", cellpadding="2", cellspacing="0" style="margin: 8px;">
+            <thead>
+                <tr>
+                    <td colspan="3" class="name" style="text-align: center;"><strong>Color Picker</strong>
+                </tr>
+                <tr>
+                    <th style="color: red;"> Red </th>
+                    <th style="color: green;"> Green </th>
+                    <th style="color: blue;"> Blue </th>
+                    <!-- <th style="color: red;"> Red </th>
+                    <th style="color: green;"> Green </th>
+                    <th style="color: blue;"> Blue </th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="Rclr" style="background-color: red; width: 8em; height: 4em;">
+                    <td id="Gclr" style="background-color: green; width: 8em; height: 4em;">
+                    <td id="Bclr" style="background-color: blue; width: 8em; height: 4em;">
+                    <!-- <td id="Hclr" style="background-color: red; width: 8em; height: 4em;">
+                    <td id="Sclr" style="background-color: green; width: 8em; height: 4em;">
+                    <td id="Lclr" style="background-color: blue; width: 8em; height: 4em;"> -->
+                </tr>
+                <tr>
+                    <td id="redval" style="text-align: center; color: red;">255
+                    <td id="greenval" style="text-align: center; color: green;">0
+                    <td id="blueval" style="text-align: center; color:blue;">0
+                    <!-- <td id="hueval" style="text-align: center; color: red;">0º
+                    <td id="saturationval" style="text-align: center; color: green;">100%
+                    <td id="lightval" style="text-align: center; color:blue;">100% -->
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><input type="range" class="clpk" id="slideRed" name="slideRed" min="0" max="255" value="255"></td>
+                    <td><input type="range" class="clpk" id="slideGreen" name="slideGreen" min="0" max="255" value="0"></td>
+                    <td><input type="range" class="clpk" id="slideBlue" name="slideBlue" min="0" max="255" value="0"></td>
+                    <!-- <td><input type="range" class="clpk" id="slideHue" name="slideHue" min="0" max="360" value="0"></td>
+                    <td><input type="range" class="clpk" id="slideSaturation" name="slideSaturation" min="0" max="100" value="100"></td>
+                    <td><input type="range" class="clpk" id="slideLight" name="slideLight" min="0" max="100" value="100"></td> -->
+                </tr>
+                <tr>
+                    <td id="resclr" colspan="3" style="background-color: red; height: 2em;">
+                    <td colspan="3"><button onclick="addingColor()">Add to palette</button></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- Button wraper -->
     <div class="buttonWraper">
-        <div>
-            <button class="rectangularButton" onclick="(--selectedWeek)%53; updateSchedule()"
-                style="width: 50px; height: 50px">
-                < </button>
-                    <button class="rectangularButton" onclick="(++selectedWeek)%53; updateSchedule()"
-                        style="width: 50px; height: 50px">></button>
+        <div style="display: flex; flex-flow: row;">
+            <button class="rectangularButton" onclick="(--selectedWeek)%53; updateSchedule()" style="width: 6vw; height: 6vh"><</button>
+            <button class="rectangularButton" onclick="(++selectedWeek)%53; updateSchedule()" style="width: 6vw; height: 6vh">></button>
         </div>
-        <button class="rectangularButton" onclick="selectedWeek = week(new Date()); updateSchedule()">Current
-            week</button>
+        <button class="rectangularButton" onclick="selectedWeek = week(new Date()); updateSchedule()">Current week</button>
         <button class="rectangularButton editButton" onclick="
         handlingColorPicking();
-        document.querySelector('.importButton').setAttribute('style', 'display:none'); 
-        document.querySelector('.editButton').setAttribute('style', 'display:none');
-        document.querySelector('.addButton').setAttribute('style', 'display:none');
         document.querySelector('.colorPanelWraper').setAttribute('style', 'display:inline-block');">Edit</button>
         <button class="rectangularButton addButton" onclick="
-        document.querySelector('.importButton').setAttribute('style', 'display:none');
-        document.querySelector('.addButton').setAttribute('style', 'display:none');
-        document.querySelector('.editButton').setAttribute('style', 'display:none');
         document.querySelector('.addPanel').setAttribute('style', 'display:inline-block');">Add event</button>
+        <button class="rectangularButton addColor" onclick="document.querySelector('.addColorPanel').setAttribute('style', 'display:inline-block');">Add color</button>
         <p class="weekText"></p>
-
     </div>
+
+    <!-- Day of Week -->
     <div class="topBar">
         <p class="dayOfWeek">Monday</p>
         <p class="dayOfWeek">Tuesday</p>
@@ -96,10 +156,13 @@
         <p class="dayOfWeek">Saturday</p>
         <p class="dayOfWeek">Sunday</p>
     </div>
+
+    <!-- Calendar -->
     <div id="calendar" style="position: relative; left: 10vw;"></div>
+
     <!-- Footer -->
     <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge"
-        style="position: absolute; top: 1350px; width: 100%;">
+        style="position: absolute; top: 1400px; width: 100%;">
         <i class="fa fa-facebook-official w3-hover-opacity"></i>
         <i class="fa fa-instagram w3-hover-opacity"></i>
         <i class="fa fa-snapchat w3-hover-opacity"></i>

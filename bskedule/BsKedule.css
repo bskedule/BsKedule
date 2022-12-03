@@ -1,5 +1,78 @@
+@media only screen and (max-width: 600px) {
+  .dayOfWeek {
+    font-size: 50%!important;
+  }
+  #calendar p {
+    font-size: 70%;
+  }
+  .card p:first-child {
+    font-size: 5vw;
+  }
+  .card p:nth-child(2) {
+    visibility: hidden;
+  } 
+}
+
+@media only screen and (max-width: 800px) {
+  .dayOfWeek {
+    font-size: 70%;
+  }
+  .rectangularButton {
+    font-size: 50%;
+    height: 50%;
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  #calendar p {
+    left: -8vw;
+  }
+  .w3-bar-item {
+    font-size: 70%;
+  }
+  .rectangularButton {
+    font-size: 1rem;
+    width: 15vw;
+    height: 6vh;
+  }
+  .card p:first-child {
+    font-size: 90%;
+    margin: 5px;
+  }
+  .card p:nth-child(2) {
+    font-size: xx-small;
+    margin: 5px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .dayOfWeek {
+    font-size: 1rem;
+  }
+  #calendar p {
+    left: -5vw;
+  }
+  .rectangularButton {
+    font-size: 1rem;
+    width: 15vw;
+    height: 6vh;
+  }
+  .card p:first-child {
+    font-size: 90%;
+    margin: 5px;
+  }
+  .card p:nth-child(2) {
+    font-size: xx-small;
+    margin: 5px;
+  }
+}
+
+
+
 body {
     font-family: "Questrial", sans-serif;
+    overflow:visible;
 }
 
 .card {
@@ -20,7 +93,7 @@ body {
 
 .button{
   border-radius: 50%;
-  border-color: #00000000;
+  border-color: black;
   width: 25px;
   height: 25px;
   box-shadow: 0 4px 8px 0 rgb(255, 255, 255);
@@ -72,6 +145,7 @@ body {
   padding: 10px 10px;
 }
 .colorTitle {
+  width: 20vw;
   margin: 10px 0px 10px 20px;
 }
 .timeInput {
@@ -85,10 +159,8 @@ body {
 }
 
 .rectangularButton {
-  font-size: 1.5rem;
   border-radius: 5px;
   border-color: #00000000;
-  width: 10vh;
   margin: 0.5vh 0.5vh 0.5vh 0.5vh;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -106,13 +178,12 @@ body {
 }
 .buttonWraper {
   display: flex;
-  flex-flow: column;
+  flex-flow: row;
   align-items: center;
-  font-size:18px;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  z-index: 2;
+  position: absolute;
+  top: 1300px;
+  left: 5%;
+  z-index: 6;
   width: fit-content;
 }
 .row {
@@ -124,7 +195,7 @@ body {
   z-index: -1;
 }
 .topBar {
-  top: 3vh;
+  top: 50px;
   left: 10vw;
   width: 80vw;
   position: relative;
@@ -135,7 +206,6 @@ body {
 }
 .dayOfWeek{
   width: 10vw;
-  font-size: 1rem;
   margin: 1vw;
   text-align: center;
 }
@@ -143,4 +213,5 @@ body {
 .weekText {
   display: inline-block;
 }
+
 
