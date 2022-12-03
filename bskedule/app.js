@@ -27,15 +27,11 @@ if(localStorage.getItem('eventSchedule'))
 }
 
 // Create lines
-for(let row = 0; row < 48; row++)
+for(let row = 0; row < 47; row++)
 {
     let rect = document.createElement('div');
     rect.setAttribute('class', 'row');
-    // rect.style.top = "5vh";
-    // rect.style.left = "5vw";
-    // rect.style.width = "80vw";
-    // rect.style.height = "80vh";
-    rect.setAttribute('style', `top:${row*50}px; left:0; border-color:black;`)
+    rect.setAttribute('style', `top:${row*25}px; left:0; border-color:black;`)
     yourCalender.appendChild(rect)
 }
 // Create times on the left side
@@ -75,6 +71,7 @@ function contentModify(theString){
         newString=theString.replace("SAN", "sân");
         return newString;
     }
+    return theString;
 }
 
 // Create lecture card
@@ -132,7 +129,7 @@ function createDetailedCard (data)
     // w = 95px ~ 10vw
     // h = size
     // c = data[5]
-    let card = createCard(lesson, content, (12*data[2]-8) +"vw", position + "px", "10vw", size+"px", data[5]);
+    let card = createCard(lesson, content, (12*data[2]-13) +"vw", position + "px", "10vw", size+"px", data[5]);
     return card
 }
 
@@ -251,7 +248,6 @@ function handlingImport()
         return
     }
     updateSchedule()
-    alert("The calender is updated.")
 }
 
 let colorOptions = ['#ffffff', '#00cccc', '#8ECAE6', '#219EBC', '#023047', '#FFB703', '#FB8500']

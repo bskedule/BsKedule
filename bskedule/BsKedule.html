@@ -15,6 +15,27 @@
 </head>
 
 <body>
+    <!-- Navbar -->
+    <div class="w3-top" style="z-index: 4;">
+        <div class="w3-bar w3-black w3-card">
+        <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">HOMEPAGE</a>
+        <a href="/#identity" class="w3-bar-item w3-button w3-padding-large w3-hide-small">THE YOUNG SHARKS</a>
+        <a href="/#input-form" class="w3-bar-item w3-button w3-padding-large w3-hide-small">INPUT</a>
+        <a href="/#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CONTACT</a>
+        <!-- <div class="w3-dropdown-hover w3-hide-small">
+            <button class="w3-padding-large w3-button" title="More">MORE <i class="fa fa-caret-down"></i></button>     
+            <div class="w3-dropdown-content w3-bar-block w3-card-4">
+            <a href="#" class="w3-bar-item w3-button">Merchandise</a>
+            <a href="#" class="w3-bar-item w3-button">Extras</a>
+            <a href="#" class="w3-bar-item w3-button">Media</a>
+            </div>
+        </div> -->
+        <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
+        </div>
+    </div>
+    
+    <!-- Panel -->
     <div class="prompt addPanel" style="display:none">
         <button class="button" style="margin: 20px 0px 0px 20px" onClick="
         document.querySelector('.addPanel').setAttribute('style', 'display:none;')
@@ -41,17 +62,7 @@
         </div>
         <button class="rectangularButton onclick=" addEvent(); save()">thêm</button>
     </div>
-    <div class="prompt importPanel" style="display:none">
-        <button class="button" style="margin: 20px 0px 0px 20px" onClick="
-        document.querySelector('.importPanel').setAttribute('style', 'display:none;')
-        document.querySelector('.importButton').setAttribute('style', 'display:inline-block');
-        document.querySelector('.editButton').setAttribute('style', 'display:inline-block');
-        document.querySelector('.addButton').setAttribute('style', 'display:inline-block');
-        ">x</button>
-        <input type="text" class="longField rawInput" style="margin: 20px 20px;">
-        <button style="margin: 20px 20px" class="rectangularButton" onclick="handlingImport(); save()">nhập</button>
 
-    </div>
     <div class="buttonWraper">
         <div>
             <button class="rectangularButton" onclick="(--selectedWeek)%53; updateSchedule()"
@@ -85,10 +96,10 @@
         <p class="dayOfWeek">Saturday</p>
         <p class="dayOfWeek">Sunday</p>
     </div>
-    <div id="calendar" style="position: relative; left: 15vw;"></div>
+    <div id="calendar" style="position: relative; left: 10vw;"></div>
     <!-- Footer -->
     <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge"
-        style="position: absolute; top: 1250px; width: 100%;">
+        style="position: absolute; top: 1350px; width: 100%;">
         <i class="fa fa-facebook-official w3-hover-opacity"></i>
         <i class="fa fa-instagram w3-hover-opacity"></i>
         <i class="fa fa-snapchat w3-hover-opacity"></i>

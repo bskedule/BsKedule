@@ -85,7 +85,7 @@ body {
 }
 
 .rectangularButton {
-  font-size:25px;
+  font-size: 1.5rem;
   border-radius: 5px;
   border-color: #00000000;
   width: 10vh;
@@ -117,24 +117,25 @@ body {
 }
 .row {
   height: 50px;
-  width: 100vw;
+  width: 80vw;
   border-bottom: solid;
   border-width: 0.5px;
   position: absolute;
   z-index: -1;
 }
 .topBar {
-  left: 15vw;
-  position: fixed;
+  top: 3vh;
+  left: 10vw;
+  width: 80vw;
+  position: relative;
   display: flex;
-  width: 100%;
   z-index: 1;
   border-radius: 5px;
   background-color: aliceblue;
 }
 .dayOfWeek{
   width: 10vw;
-  font-size: 2vw;
+  font-size: 1rem;
   margin: 1vw;
   text-align: center;
 }
