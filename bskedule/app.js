@@ -360,7 +360,7 @@ function handlingColorPicking()
         deleteSchedule.setAttribute('onClick', `coursesSchedule.splice(${scheduleIndex}, 1); updateSchedule(); handlingColorPicking()`)
         deleteSchedule.setAttribute('class', 'rectangularButton')
         deleteSchedule.setAttribute('style', 'color:white; background-color:#ff4343;')
-        deleteSchedule.innerText = 'xóa'    
+        deleteSchedule.innerText = 'Delete'    
 
         scheduleIndex = coursesSchedule.indexOf(schedule)
         deleteSchedule.setAttribute('onClick', `examsSchedule.splice(${scheduleIndex}, 1); updateSchedule(); handlingColorPicking()`)
