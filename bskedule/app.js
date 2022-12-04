@@ -407,6 +407,7 @@ body.appendChild(colorPanelWraper)
 function addEvent()
 {
     let startHour = document.querySelector('.startHour').value * 1
+    let startMinute = document.querySelector('.startMinute').value * 1
     let endHour = document.querySelector('.endHour').value * 1
     let endMinute = document.querySelector('.endMinute').value * 1
     let eventTitle = document.querySelector('.eventTitle').value
