@@ -406,13 +406,12 @@ body.appendChild(colorPanelWraper)
 
 function addEvent()
 {
-    startHour = document.querySelector('.startHour').value * 1
-    endHour = document.querySelector('.endHour').value * 1
-    startMinute = document.querySelector('.startMinute').value * 1
-    endMinute = document.querySelector('.endMinute').value * 1
-    eventTitle = document.querySelector('.eventTitle').value
-    eventContent = document.querySelector('.eventContent').value
-    dayField = document.querySelector('.day').value * 1
+    let startHour = document.querySelector('.startHour').value * 1
+    let endHour = document.querySelector('.endHour').value * 1
+    let endMinute = document.querySelector('.endMinute').value * 1
+    let eventTitle = document.querySelector('.eventTitle').value
+    let eventContent = document.querySelector('.eventContent').value
+    let dayField = document.querySelector('.day').value * 1
     if(startHour >= 0 && startHour <= 23 && endHour >= 0 && endHour <= 23 && (startHour < endHour || (startHour == endHour && startMinute < endMinute)) && startMinute >= 0 && startMinute <= 59 && endMinute >= 0 && endMinute <= 59)
     {
         eventSchedule.push([eventTitle, eventContent, dayField, `${startHour}:${startMinute} - ${endHour}:${endMinute}`, [selectedWeek], '#ffffffff'])

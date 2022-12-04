@@ -40,14 +40,14 @@
     <div class="prompt addPanel" style="display:none">
         <button class="button" style="margin: 20px 0px 0px 20px" onClick="
         document.querySelector('.addPanel').setAttribute('style', 'display:none;')
-        document.querySelector('.importButton').setAttribute('style', 'display:inline-block');
+        
         document.querySelector('.editButton').setAttribute('style', 'display:inline-block');
         document.querySelector('.addButton').setAttribute('style', 'display:inline-block');">x</button>
-        <p style="margin: 20px 20px 2px 20px">Title</p>
+        <h3 style="margin: 20px 20px 2px 20px">Title</h3>
         <input type="text" class="longField eventTitle">
-        <p style="margin: 20px 20px 2px 20px">Content</p>
+        <h3 style="margin: 20px 20px 2px 20px">Content</h3>
         <input type="text" class="longField eventContent">
-        <p style="margin: 20px 20px 2px 20px">Time</p>
+        <h3 style="margin: 20px 20px 2px 20px">Time</h3>
         <div style="display: flex; margin: 0px 0px 0px 20px;">
             <p style="margin:0px 0;">From</p>
             <input type="text" class="startHour timeInput" style="margin-left:5px">
@@ -147,6 +147,7 @@
     </div>
 
     <!-- Day of Week -->
+    <div style="top: 40px;position: relative;display: flex;height: 30px;width: 100vw;"></div>
     <div class="topBar">
         <p class="dayOfWeek">Monday</p>
         <p class="dayOfWeek">Tuesday</p>
@@ -169,8 +170,7 @@
         <i class="fa fa-pinterest-p w3-hover-opacity"></i>
         <i class="fa fa-twitter w3-hover-opacity"></i>
         <i class="fa fa-linkedin w3-hover-opacity"></i>
-        <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">The Young
-                Sharks</a></p>
+        <p class="w3-medium">Powered by <u>The Young Sharks</u></p>
     </footer>
     <div class="modal"></div>
     <script src="./app.js"></script>
